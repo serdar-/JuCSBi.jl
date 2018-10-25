@@ -1,0 +1,6 @@
+authors = ["serdar <serdar.ozsezen@gmail.com>"]
+name = "JuCSBi"
+uuid = "3d2c4730-d852-11e8-0879-2dfa406c6cb4"
+version = "0.1.0"
+
+[deps]
