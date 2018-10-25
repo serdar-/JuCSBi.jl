@@ -323,10 +323,4 @@ function get_interface_atoms(chains1::Array{Chain,1}, chains2::Array{Chain,1}, c
   get_interface_atoms(atoms1, atoms2, cutoff=cutoff)
 end
 
-
-#atoms = parse_PDB("C:/Users/Serdar/PDB/1ggg.pdb.gz")
-#pdb = create_structure(atoms)
-#print(get_all_atoms(get_chain(pdb, "A"))[1])
-
-
 end 
