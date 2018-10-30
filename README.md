@@ -6,7 +6,7 @@ JuCSBi contains a set of tools for parsing PDB (Protein Data Bank) files and cal
 
 In order to install the package, run the following code in Julia:
 
-```
+``` julia
 using Pkg
 Pkg.clone("https://github.com/serdar-/JuCSBi.jl")
 ```
