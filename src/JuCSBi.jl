@@ -146,14 +146,14 @@ function download_PDB(PDBCode::String, downloadDir::String=PDB_DIR)
 end
 
 function read_PDB(PDBFile::String)
-  pdbtext = String
+  pdbtext = nothing
   try
     if endswith(PDBFile, ".gz")
       stream = GZip.open(PDBFile, "r")
-      pdbtext = readall(stream)
+      pdbtext = readlines(stream)
     else
       stream = open(PDBFile, "r")
-      pdbtext = readall(stream)
+      pdbtext = readlines(stream)
     end
   catch(e)
     print(e)
@@ -183,10 +183,10 @@ end
 
 function parse_PDB(PDBFile::String)
   atoms = Atom[]
-  pdbtext = split(read_PDB(PDBFile), "\n")
+  pdbtext = read_PDB(PDBFile)
   for line in pdbtext
-    if beginswith(line, "ATOM")
-      serial = int(strip(line[7:11]))
+    if startswith(line, "ATOM")
+      serial = parse(Int,strip(line[7:11]))
       name = strip(line[13:16])
       if line[17] == " "
         alternative = false
@@ -195,10 +195,10 @@ function parse_PDB(PDBFile::String)
       end
       residue_name = line[18:20]
       chain = string(line[22])
-      residue_serial = int(strip(line[23:26]))
-      coords = [float(strip(line[31:38])), float(strip(line[39:46])), float(strip(line[47:54]))]
-      occupancy = float(strip(line[55:60]))
-      βfactor = float(strip(line[61:66]))
+      residue_serial = parse(Int,strip(line[23:26]))
+      coords = [parse(Float64,strip(line[31:38])), parse(Float64,strip(line[39:46])), parse(Float64,strip(line[47:54]))]
+      occupancy = parse(Float64,strip(line[55:60]))
+      βfactor = parse(Float64,strip(line[61:66]))
       element = strip(line[77:78])
       charge = strip(line[79:80])
       new_atom = Atom(serial, name, residue_name, chain, residue_serial, coords, occupancy, βfactor, element, charge, alternative)
